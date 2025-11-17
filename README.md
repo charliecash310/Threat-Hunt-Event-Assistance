@@ -1,2 +1,2 @@
 # Cyber Range Threat-Hunt-Events
-Threat Hunt Event: Assistance
+[Threat Hunt Event: Assistance](https://github.com/charliecash310/Threat-Hunt-Reports/blob/main/Threat%20Hunt%20Scenario%20Assistance.pdf)
