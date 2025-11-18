@@ -5,7 +5,7 @@
 # Table of Contents
 
 Detection and Analysis:
-- [Flag 1 - Initial Execution Detection](#flag-1---initial-execution-detection) 
+- [Flag 1 - Initial Execution Detection](#flag-1---initial-execution-detection)
 - [Flag 2 - Defense Disabling](#flag-2---defense-disabling)
 - [Flag 3 - Quick Data Probe](#flag-3---quick-data-probe)
 - [Flag 4 - Host Context Recon](#flag-4---host-context-recon)
@@ -124,7 +124,7 @@ DeviceFileEvents
 ---------------------------------------------------
 # **Detection and Analysis**
 
-# Flag 1 - Initial Execution Detection
+# Flag 1 - Initial Execution Detection  [top](#table-of-contents)
 
 
 - Throughout the threat hunt, the table `DeviceProcessEvents` was very key in order to examine the logs.
@@ -161,7 +161,7 @@ DeviceProcessEvents
 
 ---------------------------------------------------
 
-# Flag 2 - Defense Disabling
+# Flag 2 - Defense Disabling [top](#table-of-contents)
 
 <img width="663" height="519" alt="image" src="https://github.com/user-attachments/assets/59d134ae-2232-4d6a-8bd9-ba32fd18d0e3" />
 
@@ -214,7 +214,7 @@ DeviceFileEvents
 
 ---------------------------------------------------
 
-# Flag 3 - Quick Data Probe
+# Flag 3 - Quick Data Probe [top](#table-of-contents)
 
 <img width="605" height="519" alt="image" src="https://github.com/user-attachments/assets/87ce3e70-eaf9-4e99-9c58-e50ab8ae0637" />
 
@@ -253,7 +253,7 @@ DeviceFileEvents
 
 ---------------------------------------------------
 
-# Flag 4 - Host Context Recon
+# Flag 4 - Host Context Recon [top](#table-of-contents)
 
 <img width="660" height="510" alt="image" src="https://github.com/user-attachments/assets/bfaec963-a973-44e1-b905-5ee9395f2399" />
 
@@ -283,7 +283,7 @@ DeviceProcessEvents
 
 ---------------------------------------------------
 
-# Flag 5 - Storage Surface Mapping
+# Flag 5 - Storage Surface Mapping [top](#table-of-contents)
 
 <img width="677" height="503" alt="image" src="https://github.com/user-attachments/assets/823b8907-4acd-4922-a58e-9010bccace05" />
 
@@ -317,7 +317,7 @@ DeviceProcessEvents
 
 ---------------------------------------------------
 
-# Flag 6 - Connectivity & Name Resolution Check
+# Flag 6 - Connectivity & Name Resolution Check [top](#table-of-contents)
 
 <img width="659" height="502" alt="image" src="https://github.com/user-attachments/assets/e6c62aa4-f755-4c5b-95cd-0683ea774d05" />
 
@@ -344,7 +344,7 @@ DeviceNetworkEvents
 
 ---------------------------------------------------
 
-# Flag 7 - Interactive Session Discovery
+# Flag 7 - Interactive Session Discovery [top](#table-of-contents)
 
 <img width="661" height="467" alt="image" src="https://github.com/user-attachments/assets/ac36c23e-8e4a-4ece-a14f-3938832b6061" />
 
@@ -391,7 +391,7 @@ DeviceProcessEvents
 
 ---------------------------------------------------
 
-# Flag 8 - Runtime Application Inventory
+# Flag 8 - Runtime Application Inventory [top](#table-of-contents)
 
 <img width="663" height="546" alt="image" src="https://github.com/user-attachments/assets/89f36f9a-1f78-407f-bc8a-6b1dfc05fcc3" />
 
@@ -425,7 +425,7 @@ DeviceProcessEvents
 
 ---------------------------------------------------
 
-# Flag 9 - Privilege Surface Check
+# Flag 9 - Privilege Surface Check [top](#table-of-contents)
 
 <img width="661" height="481" alt="image" src="https://github.com/user-attachments/assets/3a2938db-b2da-4917-8231-c763cb7314ae" />
 
@@ -464,7 +464,7 @@ DeviceProcessEvents
 
 ---------------------------------------------------
 
-# Flag 10 - Proof-of-Access & Egress Validation
+# Flag 10 - Proof-of-Access & Egress Validation [top](#table-of-contents)
 
 <img width="661" height="543" alt="image" src="https://github.com/user-attachments/assets/07da97ad-943d-4fa6-a665-c2722bf59a47" />
 
@@ -499,7 +499,7 @@ DeviceNetworkEvents
 
 ---------------------------------------------------
 
-# Flag 11 - Bundling / Staging Artifacts
+# Flag 11 - Bundling / Staging Artifacts [top](#table-of-contents)
 
 <img width="650" height="515" alt="image" src="https://github.com/user-attachments/assets/d121712d-5a56-4949-bab5-de21e3561f48" />
 
@@ -536,7 +536,7 @@ DeviceFileEvents
 
 ---------------------------------------------------
 
-# Flag 12 - Outbound Transfer Attempt
+# Flag 12 - Outbound Transfer Attempt [top](#table-of-contents)
 
 
 <img width="649" height="519" alt="image" src="https://github.com/user-attachments/assets/bff3f5f3-a630-4ab1-8d8c-496b3e2b82da" />
