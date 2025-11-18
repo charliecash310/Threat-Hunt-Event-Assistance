@@ -49,7 +49,7 @@ Lessons Learned:
 `**Environment:** Microsoft - Log Analytics Workspace (LAW - Cyber Range)`  
 `**Attack Type:** Fake Remote Session/Malicious Help Desk`
 
----------------
+---------------------------------------------------
 
 # **Scenario**
 `A routine support request should have ended with a reset and reassurance. Instead, the so- called "help" left behind a trail of anomalies that don't add up. What was framed as troubleshooting looked more like an audit of the system itself probing, cataloging, leaving subtle traces in its wake. Actions chained together in suspicious sequence: first gaining a foothold, then expanding reach, then preparing to linger long after the session ended. And just when the activity should have raised questions, a neat explanation appeared — a story planted in plain sight, designed to justify the very behavior that demanded scrutiny. This wasn't remote assistance. It was a misdirection. Your mission this time is to reconstruct the timeline, connect the scattered remnants of  this "support session", and decide what was legitimate, and what was staged. The evidence is here. The question is whether you'll see through the story or believe it.`
@@ -63,7 +63,21 @@ Lessons Learned:
 
 <img width="715" height="199" alt="image" src="https://github.com/user-attachments/assets/c1dce20f-a108-4b62-a762-2682c38e28e3" />
 
----
+```
+//---------------------------------------------------------
+let start = datetime(2025-10-01T00:00:00Z);
+let end   = datetime(2025-10-31T23:59:59Z);
+let keywords = dynamic(["desk", "help", "support", "tool"]);
+DeviceFileEvents
+| where TimeGenerated between (start .. end)
+| where FileName has_any (keywords)
+| project TimeGenerated, DeviceName, FileName, FolderPath,
+          InitiatingProcessAccountDomain, InitiatingProcessFolderPath, InitiatingProcessId,
+          InitiatingProcessFileName, InitiatingProcessCommandLine, SHA1
+| order by TimeGenerated desc
+```
+
+---------------------------------------------------
 
 1. Spawning process originating from the download folder. Occurred in the first half of October, so sometime between October 1st -15th?
 
@@ -82,6 +96,19 @@ Lessons Learned:
 
 <img width="704" height="217" alt="image" src="https://github.com/user-attachments/assets/ff72c95f-5ce7-43fa-b020-ff28861dc1ae" />
 
+```
+//---------------------------------------------------------
+let start = datetime(2025-10-01T00:00:00Z);
+let end   = datetime(2025-10-31T23:59:59Z);
+let keywords = dynamic(["desk", "help", "support", "tool"]);
+DeviceFileEvents
+| where TimeGenerated between (start .. end)
+| where FileName has_any (keywords)
+| project TimeGenerated, DeviceName, FileName, FolderPath,
+          InitiatingProcessAccountDomain, InitiatingProcessFolderPath, InitiatingProcessId,
+          InitiatingProcessFileName, InitiatingProcessCommandLine, SHA1
+| order by TimeGenerated desc
+```
 
 
 - Ideally, another way I could have found this device without having to think so hard was to have queried the term 
