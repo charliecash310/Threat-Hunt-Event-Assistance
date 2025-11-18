@@ -88,9 +88,7 @@ Lessons Learned:
 
 - Ideally, another way I could have found this device without having to think so hard was to have queried the term 
 `Intern` for `DeviceName` in order to find the suspicious device, 
-```
 `gab-intern-vm`
-```
 - This too would have been an easier method to find in order to narrow down the suspicious device.
 
 <img width="1864" height="509" alt="image" src="https://github.com/user-attachments/assets/681a4d63-6f41-4598-82de-2ecb95c6332c" />
@@ -102,29 +100,26 @@ Lessons Learned:
 # Flag 1 - Initial Execution Detection
 
 
-` Throughout the threat hunt, the table `'DeviceProcessEvents'` was very key in order to examine the logs.
+- Throughout the threat hunt, the table `DeviceProcessEvents` was very key in order to examine the logs.
 
-For Flag 1, we're looking at Initial Execution Detection
+- For Flag 1, we're looking at Initial Execution Detection
 
-When I read what to hunt and saw 'script', the first thing that came to mind was PowerShell and Command Prompt.
-
-Further on, the question asked 
+- When I read what to hunt and saw 'script', the first thing that came to mind was PowerShell and Command Prompt. Further on, the question asked 
 
 `"What was the first CLI (command line interface) parameter name used during the execution of the suspicious program?"`
 
-After looking back and forth at was being asked of the flag and examining logs `"unusual execution"` was key in order to find this flag.
+- After looking back and forth at was being asked of the flag and examining logs `"unusual execution"` was key in order to find this flag.
 
-The earliest anomalous execution of powershell being executed was October 9th, 2025 @ 12:22 PM `
+- The earliest anomalous execution of powershell being executed was October 9th, 2025 @ 12:22 PM `
 
 <img width="1196" height="127" alt="image" src="https://github.com/user-attachments/assets/ecbd8370-1de8-4876-9cad-4ba3b1dd5cb5" />
 
 <img width="2075" height="384" alt="image" src="https://github.com/user-attachments/assets/87d0806a-00b6-4c40-89f1-1ff60438bee9" />
 
 
-Upon looking at the log activity for powershell executables we can see the first CLI parameter is set to `-ExecutionPolicy`.  First time it was executed was on October 6th, 2025 at 6:00:48 AM
+- Upon looking at the log activity for powershell executables we can see the first CLI parameter is set to `-ExecutionPolicy`.  First time it was executed was on October 6th, 2025 at 6:00:48 AM
 
-This eventually occurred again for a powershell.exe process called `SupportTool.ps1` 
-for October 9th, 2025 during 12:22:27 PM UTC
+- This eventually occurred again for a powershell.exe process called `SupportTool.ps1` for October 9th, 2025 during 12:22:27 PM UTC
 
 
 ---------------------------------------------------
