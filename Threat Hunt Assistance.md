@@ -109,7 +109,7 @@ Lessons Learned:
 
 - After looking back and forth at was being asked of the flag and examining logs `"unusual execution"` was key in order to find this flag.
 
-- The earliest anomalous execution of powershell being executed was October 9th, 2025 @ 12:22 PM `
+- The earliest anomalous execution of powershell being executed was `2025-10-06T06:00:48.7549551Z`
 
 <img width="1196" height="127" alt="image" src="https://github.com/user-attachments/assets/ecbd8370-1de8-4876-9cad-4ba3b1dd5cb5" />
 
@@ -118,7 +118,7 @@ Lessons Learned:
 
 - Upon looking at the log activity for powershell executables we can see the first CLI parameter is set to `-ExecutionPolicy`.  First time it was executed was on October 6th, 2025 at 6:00:48 AM
 
-- This eventually occurred again for a powershell.exe process called `SupportTool.ps1` for October 9th, 2025 during 12:22:27 PM UTC
+- This eventually occurred again for a powershell.exe process called `SupportTool.ps1` for October 9th, 2025 during 12:22:27 PM UTC ~ `2025-10-09T12:22:27.6588913Z`
 
 
 ---------------------------------------------------
