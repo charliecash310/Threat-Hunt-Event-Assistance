@@ -107,8 +107,7 @@ This too would have been an easier method to find in order to narrow down the su
 # Flag 1 - Initial Execution Detection
 
 
-
-Throughout the threat hunt, the table `'DeviceProcessEvents'` was very key in order to examine the logs.
+` Throughout the threat hunt, the table `'DeviceProcessEvents'` was very key in order to examine the logs.
 
 For Flag 1, we're looking at Initial Execution Detection
 
@@ -120,10 +119,11 @@ Further on, the question asked
 
 After looking back and forth at was being asked of the flag and examining logs `"unusual execution"` was key in order to find this flag.
 
-The earliest anomalous execution of powershell being executed was October 9th, 2025 @ 12:22 PM
+The earliest anomalous execution of powershell being executed was October 9th, 2025 @ 12:22 PM `
 
+<img width="1196" height="127" alt="image" src="https://github.com/user-attachments/assets/ecbd8370-1de8-4876-9cad-4ba3b1dd5cb5" />
 
-
+<img width="2075" height="384" alt="image" src="https://github.com/user-attachments/assets/87d0806a-00b6-4c40-89f1-1ff60438bee9" />
 
 
 Upon looking at the log activity for powershell executables we can see the first CLI parameter is set to `-ExecutionPolicy`.  First time it was executed was on October 6th, 2025 at 6:00:48 AM
@@ -136,8 +136,7 @@ for October 9th, 2025 during 12:22:27 PM UTC
 
 # Flag 2 - Defense Disabling
 
-
-
+<img width="663" height="519" alt="image" src="https://github.com/user-attachments/assets/59d134ae-2232-4d6a-8bd9-ba32fd18d0e3" />
 
 ----------------------------------------------------------------------
 
@@ -161,15 +160,14 @@ Still needed to find something related to either this or the `DefenderTamperArti
 
 Somehow I knew these were related to Defense Disabling but could not make the linkage as to how it was all connected.
 
+<img width="2144" height="514" alt="image" src="https://github.com/user-attachments/assets/c910c494-6961-4dcc-9f2e-c6ce4407400b" />
 
-
-
-
-
+<img width="1448" height="219" alt="image" src="https://github.com/user-attachments/assets/708a3d33-4ba1-4454-a265-006bfc370ff6" />
 
 I decided to check `DeviceFileEvents` table and query for `Artifact` in the `FileName` column.
 
 
+<img width="1252" height="124" alt="image" src="https://github.com/user-attachments/assets/ec4632fa-5264-428d-b380-b6be28e62c1e" />
 
 
 
@@ -184,13 +182,16 @@ The timestamp matches with process creation from the `DeviceProcessEvents` table
 The  `.lnk`  file extension is a shortcut of the filename. Upon researching `.LNK` files, they are often the trigger for malicious scripts and  can be used for malicious purposes.
 
 
+<img width="1863" height="771" alt="image" src="https://github.com/user-attachments/assets/3a8b87d6-a9f5-4f7b-8a7b-5b2e6369bbf9" />
 
+<img width="1978" height="595" alt="image" src="https://github.com/user-attachments/assets/98852f93-905e-482f-8ab7-6a9cd60ea677" />
 
 
 ---------------------------------------------------
 
 # Flag 3 - Quick Data Probe
 
+<img width="605" height="519" alt="image" src="https://github.com/user-attachments/assets/87ce3e70-eaf9-4e99-9c58-e50ab8ae0637" />
 
 
 For this flag I imagined the command value had something to do with copy and paste actions as it is a common short-lived action.
@@ -212,15 +213,15 @@ This specific activity related to `powershell` has the syntax for a query such a
 
 `"try { Get-Clipboard | Out-Null } catch { }"`
 
+<img width="1469" height="112" alt="image" src="https://github.com/user-attachments/assets/d85e1e11-089d-4bc3-8dd6-54f963f2c43c" />
 
-
-
-
+<img width="1429" height="354" alt="image" src="https://github.com/user-attachments/assets/95c4faef-340d-47f3-b76d-2fb9694019c4" />
 
 ---------------------------------------------------
 
 # Flag 4 - Host Context Recon
 
+<img width="660" height="510" alt="image" src="https://github.com/user-attachments/assets/bfaec963-a973-44e1-b905-5ee9395f2399" />
 
 
 While going through the logs, and reading this flag I recall seeing an executable called ' qwinsta.exe ' I had to look up this program and it is a command on windows that can:
@@ -231,7 +232,9 @@ This made sense in terms of gathering host and user context information.
 
 Working within the timestamp of `2025-10-09T12:51:44.3425653Z` we can see that this was the last recon attempt for the query session for the attacker to enumerate.
 
+<img width="1111" height="121" alt="image" src="https://github.com/user-attachments/assets/fa7b7d31-3378-4812-836c-ae1b89161b7b" />
 
+<img width="1855" height="84" alt="image" src="https://github.com/user-attachments/assets/4a85f06f-890f-4671-a5b7-0925eff8dcb9" />
 
 
 
@@ -240,6 +243,7 @@ Working within the timestamp of `2025-10-09T12:51:44.3425653Z` we can see that t
 
 # Flag 5 - Storage Surface Mapping
 
+<img width="677" height="503" alt="image" src="https://github.com/user-attachments/assets/823b8907-4acd-4922-a58e-9010bccace05" />
 
 
 After looking at the 'qwinsta.exe' process that was created in the logs.
@@ -254,7 +258,9 @@ We can see the `TimeGenerated` column is still within 12:50:00 PM-12:51:00 PM.
 	"cmd.exe" /c wmic logicaldisk get name,freespace,size
 
 
+<img width="1168" height="107" alt="image" src="https://github.com/user-attachments/assets/1da00a3b-5db3-42bd-95e9-e45a6a2416a9" />
 
+<img width="1190" height="715" alt="image" src="https://github.com/user-attachments/assets/0d1966d1-68e4-4a74-9437-f87e71ca951b" />
 
 
 
@@ -262,7 +268,7 @@ We can see the `TimeGenerated` column is still within 12:50:00 PM-12:51:00 PM.
 
 # Flag 6 - Connectivity & Name Resolution Check
 
-
+<img width="659" height="502" alt="image" src="https://github.com/user-attachments/assets/e6c62aa4-f755-4c5b-95cd-0683ea774d05" />
 
 What was key to this question was network related events. 
 Especially when it comes to DNS and outbound connections.
@@ -271,7 +277,9 @@ I decided to check the `InitiatingProcessParentFileName` column in the `DeviceNe
 
 I made sure to stay focused on October 9th 2025 during the time of `12:50-12:55 PM` as other events from `DeviceProcessEvents` and `DeviceFileEvents` were very important in relation to `SupportToolScript.ps1`. `Powershell` executables have been very prevalent throughout the hunt. 
 
+<img width="1993" height="122" alt="image" src="https://github.com/user-attachments/assets/e832c5a8-2319-488c-8701-fa37526d84ab" />
 
+<img width="2114" height="679" alt="image" src="https://github.com/user-attachments/assets/5abdd300-1878-4300-a79c-894ab1ab0bd8" />
 
 
 
@@ -280,6 +288,7 @@ I made sure to stay focused on October 9th 2025 during the time of `12:50-12:55 
 
 # Flag 7 - Interactive Session Discovery
 
+<img width="661" height="467" alt="image" src="https://github.com/user-attachments/assets/ac36c23e-8e4a-4ece-a14f-3938832b6061" />
 
 
 `Keywords: Session, Initiate Process, Unique`
@@ -295,19 +304,19 @@ I should have considered the term `unique` in order to find the number of `Initi
 	2533274790397065
 
 
+<img width="1723" height="95" alt="image" src="https://github.com/user-attachments/assets/19b3f1f5-c130-4b66-a178-7ff16cc32dc1" />
 
+<img width="2278" height="711" alt="image" src="https://github.com/user-attachments/assets/955a3d47-e687-433e-aa54-33abd7a9bc92" />
 
+<img width="1715" height="104" alt="image" src="https://github.com/user-attachments/assets/4c05e29f-a378-42a3-a41e-f4ad7f244d28" />
 
-
-
-
-
+<img width="1962" height="483" alt="image" src="https://github.com/user-attachments/assets/56d4dfd4-4c65-4d5d-8a49-6b36a0bc5765" />
 
 ---------------------------------------------------
 
 # Flag 8 - Runtime Application Inventory
 
-
+<img width="663" height="546" alt="image" src="https://github.com/user-attachments/assets/89f36f9a-1f78-407f-bc8a-6b1dfc05fcc3" />
 
 They want the _file name_ of the process that shows:
 - `“runtime process enumeration”
@@ -323,10 +332,9 @@ This is pointing directly at:
 
  **`tasklist.exe`**
 
+<img width="1506" height="132" alt="image" src="https://github.com/user-attachments/assets/68b42c61-03bd-41ed-b717-3b7dd0af90c1" />
 
-
-
-
+<img width="1966" height="90" alt="image" src="https://github.com/user-attachments/assets/8c02e582-4206-4e10-a113-0e41902e4d42" />
 
 ---------------------------------------------------
 
