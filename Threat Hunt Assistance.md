@@ -83,16 +83,21 @@ The keyword "support" also allowed me to find this suspicious filename, " Suppor
 several machines were found to share the same types of files - similar executables, naming patterns, and other traits - 
 
 
-<img width="2290" height="297" alt="image" src="https://github.com/user-attachments/assets/0585de67-d225-484e-a828-906771a4a5cc" />
+<img width="704" height="217" alt="image" src="https://github.com/user-attachments/assets/ff72c95f-5ce7-43fa-b020-ff28861dc1ae" />
 
 
-Ideally, another way I could have found this device without having to think so hard was to have queried the term `Intern` for `DeviceName` in order to find the suspicious device, 
+```
+
+Ideally, another way I could have found this device without having to think so hard was to have queried the term 
+`Intern` for `DeviceName` in order to find the suspicious device, 
 
 `gab-intern-vm`
 
 This too would have been an easier method to find in order to narrow down the suspicious device.
 
+```
 
+<img width="1864" height="509" alt="image" src="https://github.com/user-attachments/assets/681a4d63-6f41-4598-82de-2ecb95c6332c" />
 
 
 ---------------------------------------------------
