@@ -140,6 +140,16 @@ DeviceFileEvents
 
 <img width="1196" height="127" alt="image" src="https://github.com/user-attachments/assets/ecbd8370-1de8-4876-9cad-4ba3b1dd5cb5" />
 
+```
+//---------------FLAG 1-----------------------
+DeviceProcessEvents
+| where DeviceName == "gab-intern-vm"
+| where AccountName == "g4bri3lintern"
+| where FileName == "powershell.exe"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-31T23:59:59Z))
+| project TimeGenerated, ActionType, DeviceName, AccountName, FileName, FolderPath, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessCommandLine, SHA1
+```
+
 <img width="2075" height="384" alt="image" src="https://github.com/user-attachments/assets/87d0806a-00b6-4c40-89f1-1ff60438bee9" />
 
 
@@ -177,7 +187,15 @@ DeviceFileEvents
 
 <img width="1252" height="124" alt="image" src="https://github.com/user-attachments/assets/ec4632fa-5264-428d-b380-b6be28e62c1e" />
 
-
+```
+//---------------FLAG 2-----------------------
+DeviceFileEvents
+| where DeviceName == "gab-intern-vm"
+| where ActionType == "FileCreated"
+| where FileName contains "Artifact"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-15T23:59:59Z))
+| project TimeGenerated, ActionType, DeviceName, FileName, InitiatingProcessCommandLine, InitiatingProcessFolderPath, InitiatingProcessParentFileName
+```
 
 - For the query, I kept using `Artifact` and used this information to see if there was another file name related to the term.
 
@@ -219,6 +237,15 @@ The Answer:
 
 `"try { Get-Clipboard | Out-Null } catch { }"`
 
+```
+//---------------FLAG 3-----------------------
+DeviceFileEvents
+| where DeviceName == "gab-intern-vm"
+| where InitiatingProcessCommandLine contains "clip"
+| where TimeGenerated between (datetime(2025-10-09T00:00:00Z) .. datetime(2025-10-15T23:59:59Z))
+| project TimeGenerated, ActionType, DeviceName, FileName, FolderPath, InitiatingProcessCommandLine, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessParentFileName
+```
+
 <img width="1469" height="112" alt="image" src="https://github.com/user-attachments/assets/d85e1e11-089d-4bc3-8dd6-54f963f2c43c" />
 
 <img width="1429" height="354" alt="image" src="https://github.com/user-attachments/assets/95c4faef-340d-47f3-b76d-2fb9694019c4" />
@@ -236,7 +263,19 @@ The Answer:
 
 - Working within the timestamp of `2025-10-09T12:51:44.3425653Z` we can see that this was the last recon attempt for the query session for the attacker to enumerate.
 
+
+
 <img width="1111" height="121" alt="image" src="https://github.com/user-attachments/assets/fa7b7d31-3378-4812-836c-ae1b89161b7b" />
+
+```
+//---------------FLAG 4-----------------------
+DeviceProcessEvents
+| where DeviceName == "gab-intern-vm"
+| where AccountName == "g4bri3lintern"
+| where ProcessCommandLine contains "qwi"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-20T23:59:59Z))
+| project TimeGenerated, AccountDomain, AccountName, ActionType, DeviceName, FileName, InitiatingProcessCommandLine, InitiatingProcessFileName
+```
 
 <img width="1855" height="84" alt="image" src="https://github.com/user-attachments/assets/4a85f06f-890f-4671-a5b7-0925eff8dcb9" />
 
