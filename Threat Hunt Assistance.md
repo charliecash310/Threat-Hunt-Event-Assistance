@@ -10,7 +10,7 @@ Detection and Analysis:
 - [🔍Flag 3 - Quick Data Probe](#flag-3---quick-data-probe)
 - [👁️Flag 4 - Host Context Recon](#flag-4---host-context-recon)
 - [🗺️Flag 5 - Storage Surface Mapping](#flag-5---storage-surface-mapping)
-- [⇄ Flag 6 - Connectivity & Name Resolution Check](#flag-6---connectivity--name-resolution-check)
+- [⇄  Flag 6 - Connectivity & Name Resolution Check](#flag-6---connectivity--name-resolution-check)
 - [👀Flag 7 - Interactive Session Discovery](#flag-7---interactive-session-discovery)
 - [📦Flag 8 - Runtime Application Inventory](#flag-8---runtime-application-inventory)
 - [🏠︎ Flag 9 - Privilege Surface Check](#flag-9---privilege-surface-check)
