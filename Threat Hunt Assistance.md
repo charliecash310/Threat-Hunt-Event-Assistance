@@ -103,6 +103,7 @@ let end   = datetime(2025-10-31T23:59:59Z);
 let keywords = dynamic(["desk", "help", "support", "tool"]);
 DeviceFileEvents
 | where TimeGenerated between (start .. end)
+| where DeviceName == "gab-intern-vm"
 | where FileName has_any (keywords)
 | project TimeGenerated, DeviceName, FileName, FolderPath,
           InitiatingProcessAccountDomain, InitiatingProcessFolderPath, InitiatingProcessId,
