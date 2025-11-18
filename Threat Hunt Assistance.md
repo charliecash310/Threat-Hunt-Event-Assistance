@@ -1,3 +1,7 @@
+# Threat Hunt Scenario - Assistance
+
+<img width="647" height="551" alt="image" src="https://github.com/user-attachments/assets/3dbc54c7-3132-4ed4-8601-b339dcc1483f" />
+
 # Table of Contents
 
 Detection and Analysis:
@@ -53,13 +57,13 @@ Lessons Learned:
 ---------------------------------------------------
 # **Preparation**
 
+<img width="657" height="309" alt="image" src="https://github.com/user-attachments/assets/8942b8bf-b907-47bc-9334-ea9f6ffc6f16" />
 
+<img width="655" height="151" alt="image" src="https://github.com/user-attachments/assets/a763f5e7-4426-4ee3-b02f-beaa98be81a5" />
 
-
+<img width="715" height="199" alt="image" src="https://github.com/user-attachments/assets/c1dce20f-a108-4b62-a762-2682c38e28e3" />
 
 ---
-
-
 
 1. Spawning process originating from the download folder. Occurred in the first half of October, so sometime between October 1st -15th?
 
@@ -68,7 +72,18 @@ Lessons Learned:
 3. Common keywords, `"desk", "help", "support", and "tool"`
 
 
+<img width="1450" height="575" alt="image" src="https://github.com/user-attachments/assets/f0c6c24a-97fd-4884-8613-8c23a803a964" />
 
+In order to identify the most suspicious machine based on the given conditions I decided to set a variable called 'keywords' with "desk", "help", "support", and "tool" in order to set up the query. 
+
+First table I checked to start this hunt was 'DeviceFileEvents.' 
+
+The keyword "support" also allowed me to find this suspicious filename, " Support_701.txt " that was unusual as I was going through the logs but it allowed me to find the suspicious machine. I kept focus as it was mentioned at starting point 
+
+several machines were found to share the same types of files - similar executables, naming patterns, and other traits - 
+
+
+<img width="2290" height="297" alt="image" src="https://github.com/user-attachments/assets/0585de67-d225-484e-a828-906771a4a5cc" />
 
 
 Ideally, another way I could have found this device without having to think so hard was to have queried the term `Intern` for `DeviceName` in order to find the suspicious device, 
