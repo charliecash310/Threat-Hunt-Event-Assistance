@@ -396,9 +396,9 @@ Exactly the kind of staging behavior attackers love:
 
 
 
-Recall the same query from Flag 10. The IP of the last unusual outbound connection was listed to a website called `httpbin.org` .
+- Recall the same query from Flag 10. The IP of the last unusual outbound connection was listed to a website called `httpbin.org` .
 
-The `RemoteIP` column showed the IP, `100.29.147.161`, of the outbound connection
+- The `RemoteIP` column showed the IP, `100.29.147.161`, of the outbound connection
 
 <img width="1220" height="137" alt="image" src="https://github.com/user-attachments/assets/48d39b74-91cc-4325-a9bc-84d3860c8bbe" />
 
@@ -412,7 +412,7 @@ The `RemoteIP` column showed the IP, `100.29.147.161`, of the outbound connectio
 <img width="648" height="475" alt="image" src="https://github.com/user-attachments/assets/e1b1dd04-64f4-4e69-96e8-66d8803e1e82" />
 
 
-The question asks for `task name`
+- The question asks for `task name`
 
 <img width="1492" height="134" alt="image" src="https://github.com/user-attachments/assets/cd510383-0c72-4356-a8ec-d4355db571b0" />
 
@@ -420,9 +420,9 @@ The question asks for `task name`
 
 
 
-We can see in the output of `schtasks.exe` that the task name `/TN` flag is part of the process command line. 
+- We can see in the output of `schtasks.exe` that the task name `/TN` flag is part of the process command line. 
 
-We can see the value of the task name is `SupportToolUpdater`
+- **We can see the value of the task name is `SupportToolUpdater`
 
 ---------------------------------------------------
 
@@ -430,7 +430,7 @@ We can see the value of the task name is `SupportToolUpdater`
 
 <img width="648" height="559" alt="image" src="https://github.com/user-attachments/assets/daa04793-cfa7-4559-94e6-a7f1cd1acc60" />
 
-The table `RemoteAssistUpdater` returned nothing. 
+- The table `RemoteAssistUpdater` returned nothing. 
 
 
 ---------------------------------------------------
@@ -439,15 +439,15 @@ The table `RemoteAssistUpdater` returned nothing.
 
 <img width="659" height="523" alt="image" src="https://github.com/user-attachments/assets/2a834215-ef61-46ec-afbd-1c895984cd43" />
 
-The actor **left a cover story behind**, and the hint gives it away:
+- The actor **left a cover story behind**, and the hint gives it away:
 
 > **Hint:** The actor opened it for some reason.
 
-That means we’re hunting for a file the attacker **manually opened**, likely something meant to _explain_ or _justify_ what they were doing. 
+- That means we’re hunting for a file the attacker **manually opened**, likely something meant to _explain_ or _justify_ what they were doing. 
 
-The attacker delivered `SupportTool.ps1` to the victim’s Downloads folder and then executed it via the Windows shell, causing Explorer to create `SupportTool.lnk` in the Recent items directory.
+- The attacker delivered `SupportTool.ps1` to the victim’s Downloads folder and then executed it via the Windows shell, causing Explorer to create `SupportTool.lnk` in the Recent items directory.
 
-This ties the script to an interactive session (likely the `g4bri3Intern` profile) and demonstrates user-level execution (MITRE ATT&CK T1204 – User Execution).
+- This ties the script to an interactive session (likely the `g4bri3Intern` profile) and demonstrates user-level execution (MITRE ATT&CK T1204 – User Execution).
 
 ---------------------------------------------------
 
@@ -478,6 +478,9 @@ And every step was traceable using **Log Analytics KQL**, primarily through:
 - `DeviceNetworkEvents`
 
 ---------------------------------------------------
+
+# Flags → MITRE ATT&CK Mapping Table
+
 ---------------------------------------------------
 
 # Summary of ATT&CK Categories Used
