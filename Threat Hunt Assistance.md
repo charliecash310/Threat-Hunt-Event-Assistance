@@ -1,40 +1,40 @@
 # Table of Contents
 
 Detection and Analysis:
-- [[#Flag 1 - Initial Execution Detection]] 
-- [[#Flag 2 - Defense Disabling]]
-- [[#Flag 3 - Quick Data Probe]]
-- [[#Flag 4 - Host Context Recon]]
-- [[#Flag 5 - Storage Surface Mapping]]
-- [[#Flag 6 - Connectivity & Name Resolution Check]]
-- [[#Flag 7 - Interactive Session Discovery]]
-- [[#Flag 8 - Runtime Application Inventory]]
-- [[#Flag 9 - Privilege Surface Check]]
-- [[#Flag 10 - Proof-of-Access & Egress Validation]]
-- [[#Flag 11 - Bundling / Staging Artifacts]]
-- [[#Flag 12 - Outbound Transfer Attempt]]
-- [[#Flag 13 - Scheduled Re-Execution Persistence]]
-- [[#Flag 14 - Autorun Fallback Persistence]]
-- [[#Flag 15 - Planted Narrative / Cover Artifact]]
-- [[#Logical Flow & Analyst Reasoning]]
-- [[#Final Notes / Findings]]
+- [Flag 1 - Initial Execution Detection]() 
+- [Flag 2 - Defense Disabling]()
+- [Flag 3 - Quick Data Probe]()
+- [Flag 4 - Host Context Recon]()
+- [Flag 5 - Storage Surface Mapping]()
+- [Flag 6 - Connectivity & Name Resolution Check]()
+- [Flag 7 - Interactive Session Discovery]()
+- [Flag 8 - Runtime Application Inventory]()
+- [Flag 9 - Privilege Surface Check]()
+- [Flag 10 - Proof-of-Access & Egress Validation]()
+- [Flag 11 - Bundling / Staging Artifacts]()
+- [Flag 12 - Outbound Transfer Attempt]()
+- [Flag 13 - Scheduled Re-Execution Persistence]()
+- [Flag 14 - Autorun Fallback Persistence]()
+- [Flag 15 - Planted Narrative / Cover Artifact]()
+- [Logical Flow & Analyst Reasoning]()
+- [Final Notes / Findings]()
 
 MITRE ATT&CK Framework:
-- [[#Flags → MITRE ATT&CK Mapping Table]]
-- [[#Summary of ATT&CK Categories Used]]
+- [Flags → MITRE ATT&CK Mapping Table]()
+- [Summary of ATT&CK Categories Used]()
 
 Lessons Learned:
-- [[#🔒 **1. Strengthen PowerShell Logging & Restrictions**|🔒 **1. Strengthen PowerShell Logging & Restrictions**]]
-- [[#📁 **2. Restrict Execution from User Download Folders**|📁 **2. Restrict Execution from User Download Folders**]]
-- [[#🔍 **3. Harden Scheduled Task Abuse**|🔍 **3. Harden Scheduled Task Abuse**]]
-- [[#🚫 **4. Prevent Registry Run Key Persistence**|🚫 **4. Prevent Registry Run Key Persistence**]]
-- [[#🌐 **5. Improve Network Egress Controls**|🌐 **5. Improve Network Egress Controls**]]
-- [[#🛡 **6. Enable/Improve Endpoint Security Controls**|🛡 **6. Enable/Improve Endpoint Security Controls**]]
-- [[#🧩 **7. Block Living-off-the-Land Binaries (LOLBins)**|🧩 **7. Block Living-off-the-Land Binaries (LOLBins)**]]
-- [[#🔐 **8. Least Privilege Enforcement**|🔐 **8. Least Privilege Enforcement**]]
-- [[#📦 **9. User Education & Phishing Awareness**|📦 **9. User Education & Phishing Awareness**]]
-- [[#🧵 **10. Improve SOC Detection Logic**|🧵 **10. Improve SOC Detection Logic**]]
-- [[#🗂 **11. File System Hardening**|🗂 **11. File System Hardening**]]
+- [🔒 1. Strengthen PowerShell Logging & Restrictions]()
+- [📁 2. Restrict Execution from User Download Folders]()
+- [🔍 3. Harden Scheduled Task Abuse]()
+- [🚫 4. Prevent Registry Run Key Persistence]()
+- [🌐 5. Improve Network Egress Controls]()
+- [🛡 6. Enable/Improve Endpoint Security Controls]()
+- [🧩 7. Block Living-off-the-Land Binaries (LOLBins)]()
+- [🔐 8. Least Privilege Enforcement]()
+- [📦 9. User Education & Phishing Awareness]()
+- [🧵 10. Improve SOC Detection Logic]()
+- [🗂 11. File System Hardening]()
 
 
 ---
