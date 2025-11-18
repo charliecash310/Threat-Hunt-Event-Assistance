@@ -475,3 +475,286 @@ This ties the script to an interactive session (likely the `g4bri3Intern` profil
 <img width="660" height="939" alt="image" src="https://github.com/user-attachments/assets/a7c631cc-c3df-4090-af5e-ccfa777325cb" />
 
 <img width="650" height="889" alt="image" src="https://github.com/user-attachments/assets/dd20c29b-8db8-47ab-b673-1ed667b0c615" />
+
+---------------------------------------------------
+
+# Final Notes / Findings
+
+This incident simulated a realistic multi-stage intrusion:
+
+- Initial foothold
+- Reconnaissance
+- Privilege assessment
+- Local staging
+- Persistence
+- Attempted exfiltration
+- Narrative manipulation
+
+And every step was traceable using **Log Analytics KQL**, primarily through:
+
+- `DeviceProcessEvents`
+- `DeviceFileEvents`
+- `DeviceNetworkEvents`
+
+---------------------------------------------------
+---------------------------------------------------
+
+# Summary of ATT&CK Categories Used
+
+| Category                          | Techniques Used            |
+| --------------------------------- | -------------------------- |
+| **Execution**                     | T1059.001                  |
+| **Defense Evasion**               | T1036, T1204.002           |
+| **Credential Access**             | T1115                      |
+| **Discovery**                     | T1033, T1082, T1057, T1069 |
+| **Lateral Movement Prep / Recon** | T1035                      |
+| **Command & Control / Network**   | T1071, T1071.004           |
+| **Collection**                    | T1560                      |
+| **Exfiltration**                  | T1041, T1567.002           |
+| **Persistence**                   | T1053.005, T1547.001       |
+
+
+---------------------------------------------------
+
+# Lessons Learned 
+
+Mitigations for This Threat Hunt
+
+Each mitigation is mapped to the techniques observed in the hunt, prioritized by impact and feasibility.
+
+---
+## 🔒 **1. Strengthen PowerShell Logging & Restrictions**
+
+**Why:** Nearly all malicious activity in this scenario involved PowerShell:
+
+- ExecutionPolicy bypass
+    
+- Hidden windows
+    
+- Script execution from Downloads
+    
+- Clipboard scraping attempts
+    
+- File staging and exfil tests
+  
+**Mitigations:**
+
+- Enable **PowerShell Script Block Logging** (4104)
+    
+- Enable **Module Logging**
+    
+- Enable **PowerShell Transcription**
+    
+- Enforce **Constrained Language Mode** for non-admins
+    
+- Block **ExecutionPolicy Bypass** via GPO:
+    
+`Computer Configuration → Administrative Templates → Windows Components → PowerShell   "Turn on Script Execution" → Allow only signed scripts`
+
+- Deploy **AppLocker** or **Windows Defender Application Control (WDAC)** rules to block PowerShell.exe for standard users
+---
+## 📁 **2. Restrict Execution from User Download Folders**
+
+**Why:** Initial execution occurred from:  
+`C:\Users\<intern>\Downloads\SupportTool.ps1`
+
+**Mitigations:**
+
+- Block execution in Downloads, Desktop, Temp using WDAC / AppLocker
+    
+- Monitor for executions where:
+    
+    - Process.CommandLine contains `C:\Users\*\Downloads\`
+        
+    - FileCreated events appear in Downloads with *.ps1 / *.exe / *.lnk
+---
+## 🔍 **3. Harden Scheduled Task Abuse**
+
+**Why:** Persistence was created via:  
+`Schtasks.exe /Create /SC ONLOGON /TN SupportToolUpdater ...`
+
+**Mitigations:**
+
+- Restrict scheduled task creation to admins
+    
+- Monitor for schtasks.exe spawning from PowerShell
+    
+- Enable Windows Event Logs for Scheduled Tasks (Operational channel)
+    
+- Alert on task names with benign-sounding names (`*Updater`, `*Support*`, etc.)
+---
+## 🚫 **4. Prevent Registry Run Key Persistence**
+
+**Why:** A fallback autorun mechanism was created (Flag 14).
+
+**Mitigations:**
+
+- Monitor & block modifications to:
+    
+    - `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`
+        
+    - `HKLM\Software\Microsoft\Windows\CurrentVersion\Run`
+        
+- Use Sysmon Event ID 13 (RegistryValueSet)
+    
+- Lock down autorun entries via GPO
+---
+## 🌐 **5. Improve Network Egress Controls**
+
+**Why:** The attacker performed:
+
+- DNS checks
+    
+- Egress validation
+    
+- An outbound exfil attempt
+    
+    - (Flag 12: unusual destination IP `100.29.147.161`)
+
+**Mitigations:**
+
+- Block outbound traffic to non-approved external IPs
+    
+- Require egress via proxy with TLS inspection
+    
+- Implement DNS filtering (block non-corp resolvers)
+    
+- Alert on:
+    
+    - PowerShell making outbound connections
+        
+    - Nslookup being used with suspicious hostnames
+        
+    - Requests to unknown external IPs
+---
+## 🛡 **6. Enable/Improve Endpoint Security Controls**
+
+**Why:** Defender was tampered with (Flag 2).
+
+**Mitigations:**
+
+- Turn on Tamper Protection in Microsoft Defender
+    
+- Prevent users from stopping/reconfiguring Defender services
+    
+- Monitor for:
+    
+    - Write operations to `Set-MpPreference`
+        
+    - Unusual Defender artifacts like `DefenderTamperArtifact.txt/.lnk`
+---
+## 🧩 **7. Block Living-off-the-Land Binaries (LOLBins)**
+
+The attacker used LOLBins such as:
+
+- **whoami.exe**
+    
+- **ipconfig.exe**
+    
+- **qwinsta.exe / query session**
+    
+- **WMIC.exe**
+    
+- **cmd.exe /c tasklist /v**
+    
+
+**Mitigations:**
+
+- Restrict unused LOLBins (via AppLocker/WDAC)
+    
+- Log and alert on suspicious commands:
+    
+    - `query session`
+        
+    - `wmic logicaldisk`
+        
+    - `tasklist /v`
+        
+    - `whoami /priv`
+---
+## 🔐 **8. Least Privilege Enforcement**
+
+**Why:** The user was allowed to do:
+
+- PowerShell script execution
+    
+- Create scheduled tasks
+    
+- Modify autorun entries
+**Mitigations:**
+
+- Remove local admin privileges
+    
+- Restrict scripting capability for interns and non-technical staff
+    
+- Apply LAPS to rotate local admin creds
+---
+## 📦 **9. User Education & Phishing Awareness**
+
+**Why:** The initial malicious "support tool" masqueraded as a legitimate file.
+
+**Mitigations:**
+
+- Train users not to run unknown scripts/tools
+    
+- Warn about .ps1 files in downloads
+    
+- Highlight risks of “helpdesk tools” sent externally
+---
+## 🧵 **10. Improve SOC Detection Logic**
+
+Create detection rules for:
+### Indicators of Execution
+
+- PowerShell with `ExecutionPolicy Bypass`
+    
+- Cmd launching PowerShell
+    
+- PowerShell launching NSLookup
+    
+- Creation of `.lnk` files outside standard directories
+    
+### Indicators of Persistence
+
+- schtasks.exe creating new tasks
+    
+- Registry Run key modifications
+    
+### Indicators of Exfiltration
+
+- Outbound connections from PowerShell
+    
+- Repeated DNS lookups to untrusted domains
+---
+## 🗂 **11. File System Hardening**
+
+**Why:** The attacker staged artifacts in:  
+`C:\Users\Public\ReconArtifacts.zip`
+
+**Mitigations:**
+
+- Restrict write permissions to the Public directory
+    
+- Alert when ZIPs or archives are created unexpectedly
+    
+- Block creation of artifacts in:
+    
+    - Public
+        
+    - Temp
+        
+    - Downloads
+---
+# ⭐ **Top 5 Quick-Win Mitigations to Implement Immediately**
+
+1. **Enable PowerShell logging + restrict script execution**
+    
+2. **Enforce WDAC / AppLocker rules on Downloads & Temp execution**
+    
+3. **Block suspicious outbound connections via DNS filtering + egress firewall**
+    
+4. **Enable Tamper Protection in Microsoft Defender**
+    
+5. **Detect + alert on Scheduled Task creation from PowerShell**
+
+
