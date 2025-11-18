@@ -295,10 +295,20 @@ DeviceProcessEvents
 
 - We can see the `TimeGenerated` column is still within 12:50:00 PM-12:51:00 PM.
 
-	`Time Generated @ 2025-10-09T12:51:18.3848072Z`
-	`"cmd.exe" /c wmic logicaldisk get name,freespace,size`
+	- `Time Generated @ 2025-10-09T12:51:18.3848072Z`
+	- `"cmd.exe" /c wmic logicaldisk get name,freespace,size`
 
 <img width="1168" height="107" alt="image" src="https://github.com/user-attachments/assets/1da00a3b-5db3-42bd-95e9-e45a6a2416a9" />
+
+```
+//---------------FLAG 5-----------------------
+DeviceProcessEvents
+| where DeviceName == "gab-intern-vm"
+| where AccountName == "g4bri3lintern"
+| where FileName contains "cmd"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-20T23:59:59Z))
+| project TimeGenerated, AccountDomain, AccountName, ActionType, DeviceName, FileName, ProcessCommandLine, InitiatingProcessCommandLine, InitiatingProcessFileName
+```
 
 <img width="1190" height="715" alt="image" src="https://github.com/user-attachments/assets/0d1966d1-68e4-4a74-9437-f87e71ca951b" />
 
@@ -317,6 +327,16 @@ DeviceProcessEvents
 - I made sure to stay focused on October 9th 2025 during the time of `12:50-12:55 PM` as other events from `DeviceProcessEvents` and `DeviceFileEvents` were very important in relation to `SupportToolScript.ps1`. `Powershell` executables have been very prevalent throughout the hunt. 
 
 <img width="1993" height="122" alt="image" src="https://github.com/user-attachments/assets/e832c5a8-2319-488c-8701-fa37526d84ab" />
+
+```
+//---------------FLAG 6-----------------------
+DeviceNetworkEvents
+| where DeviceName == "gab-intern-vm"
+| where ActionType == "ConnectionSuccess"
+| where InitiatingProcessFileName == "powershell.exe"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-20T23:59:59Z))
+| project TimeGenerated, ActionType, InitiatingProcessFileName, InitiatingProcessFolderPath, InitiatingProcessId, InitiatingProcessParentFileName, Protocol, RemoteIP
+```
 
 <img width="2114" height="679" alt="image" src="https://github.com/user-attachments/assets/5abdd300-1878-4300-a79c-894ab1ab0bd8" />
 
@@ -343,9 +363,28 @@ DeviceProcessEvents
 
 <img width="1723" height="95" alt="image" src="https://github.com/user-attachments/assets/19b3f1f5-c130-4b66-a178-7ff16cc32dc1" />
 
+```
+//---------------FLAG 7-----------------------
+DeviceProcessEvents
+| where DeviceName == "gab-intern-vm"
+| where AccountName == "g4bri3lintern"
+| where TimeGenerated between (datetime(2025-10-09T00:00:00Z) .. datetime(2025-10-10T23:59:59Z))
+| project TimeGenerated, AccountName, ActionType, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessUniqueId, ProcessId, InitiatingProcessId, InitiatingProcessCommandLine
+```
+
 <img width="2278" height="711" alt="image" src="https://github.com/user-attachments/assets/955a3d47-e687-433e-aa54-33abd7a9bc92" />
 
 <img width="1715" height="104" alt="image" src="https://github.com/user-attachments/assets/4c05e29f-a378-42a3-a41e-f4ad7f244d28" />
+
+```
+//---------------FLAG 7-----------------------
+DeviceProcessEvents
+| where DeviceName == "gab-intern-vm"
+| where AccountName == "g4bri3lintern"
+| where InitiatingProcessUniqueId == "2533274790397065"
+| where TimeGenerated between (datetime(2025-10-09T00:00:00Z) .. datetime(2025-10-10T23:59:59Z))
+| project TimeGenerated, AccountName, ActionType, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessUniqueId, ProcessId, InitiatingProcessId, InitiatingProcessCommandLine
+```
 
 <img width="1962" height="483" alt="image" src="https://github.com/user-attachments/assets/56d4dfd4-4c65-4d5d-8a49-6b36a0bc5765" />
 
@@ -370,6 +409,16 @@ This is pointing directly at:
  **`tasklist.exe`**
 
 <img width="1506" height="132" alt="image" src="https://github.com/user-attachments/assets/68b42c61-03bd-41ed-b717-3b7dd0af90c1" />
+
+```
+//---------------FLAG 8-----------------------
+DeviceProcessEvents
+| where DeviceName == "gab-intern-vm"
+| where AccountName == "g4bri3lintern"
+| where ProcessCommandLine contains "tasklist"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-15T23:59:59Z))
+| project TimeGenerated, AccountName, ActionType, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessUniqueId, InitiatingProcessId, InitiatingProcessParentId
+```
 
 <img width="1966" height="90" alt="image" src="https://github.com/user-attachments/assets/8c02e582-4206-4e10-a113-0e41902e4d42" />
 
@@ -400,6 +449,16 @@ That’s `whoami` territory.
 
 <img width="1494" height="121" alt="image" src="https://github.com/user-attachments/assets/39465d67-1977-4d65-84be-9bab3e458317" />
 
+```
+//---------------FLAG 9-----------------------
+DeviceProcessEvents
+| where DeviceName == "gab-intern-vm"
+| where AccountName == "g4bri3lintern"
+| where ProcessCommandLine contains "who"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-15T23:59:59Z))
+| project TimeGenerated, AccountName, ActionType, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessUniqueId, InitiatingProcessId, InitiatingProcessParentId
+```
+
 <img width="1189" height="229" alt="image" src="https://github.com/user-attachments/assets/5af37ea0-29ff-48df-99a1-973891d8b14b" />
 
 ---------------------------------------------------
@@ -421,6 +480,17 @@ Defender logs this as `DeviceNetworkEvents.`
 	Decided to check the `RemoteUrl` column for outbound connections that were being tested with powershell.exe results below were the only existing domains to an unusual destination.
 
 <img width="1651" height="138" alt="image" src="https://github.com/user-attachments/assets/fcd73d08-c31c-47df-bd31-454177670959" />
+
+```
+//---------------FLAG 10-----------------------
+DeviceNetworkEvents
+| where DeviceName == "gab-intern-vm"
+| where InitiatingProcessAccountName == "g4bri3lintern"
+| where InitiatingProcessFileName == "powershell.exe"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-15T23:59:59Z))
+| project TimeGenerated, ActionType, DeviceName, InitiatingProcessAccountName, InitiatingProcessCommandLine, InitiatingProcessFileName, RemoteIP, RemoteUrl, InitiatingProcessFolderPath, InitiatingProcessUniqueId
+| order by TimeGenerated asc
+```
 
 <img width="1586" height="117" alt="image" src="https://github.com/user-attachments/assets/ed079127-1942-4d24-a3f4-1d00ee82b28a" />
 
@@ -451,6 +521,16 @@ Exactly the kind of staging behavior attackers love:
 
 <img width="768" height="123" alt="image" src="https://github.com/user-attachments/assets/281b5337-bd69-44c2-8b6c-5b42be4d9c67" />
 
+```
+//---------------FLAG 11-----------------------
+DeviceFileEvents
+| where DeviceName == "gab-intern-vm"
+| where FolderPath contains "artifact"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-15T23:59:59Z))
+| project TimeGenerated, ActionType, DeviceName, FileName, FolderPath
+| order by TimeGenerated asc
+```
+
 <img width="1343" height="121" alt="image" src="https://github.com/user-attachments/assets/cfb6ee2f-f8f1-4309-b523-37b0043bb94f" />
 
 ---------------------------------------------------
@@ -468,6 +548,17 @@ Exactly the kind of staging behavior attackers love:
 
 <img width="1220" height="137" alt="image" src="https://github.com/user-attachments/assets/48d39b74-91cc-4325-a9bc-84d3860c8bbe" />
 
+```
+//---------------FLAG 12-----------------------
+DeviceNetworkEvents
+| where DeviceName == "gab-intern-vm"
+| where InitiatingProcessAccountName == "g4bri3lintern"
+| where InitiatingProcessFileName == "powershell.exe"
+| where TimeGenerated between (datetime(2025-10-01T00:00:00Z) .. datetime(2025-10-15T23:59:59Z))
+| project TimeGenerated, ActionType, DeviceName, InitiatingProcessAccountName, InitiatingProcessCommandLine, InitiatingProcessFileName, RemoteIP, RemoteUrl
+| order by TimeGenerated asc
+```
+
 <img width="1564" height="118" alt="image" src="https://github.com/user-attachments/assets/898d9787-38a5-44c4-a660-2f68cf4c3172" />
 
 
@@ -484,6 +575,17 @@ Exactly the kind of staging behavior attackers love:
 
 
 <img width="1492" height="134" alt="image" src="https://github.com/user-attachments/assets/cd510383-0c72-4356-a8ec-d4355db571b0" />
+
+```
+//---------------FLAG 13-----------------------
+DeviceProcessEvents
+| where DeviceName == "gab-intern-vm"
+| where AccountName == "g4bri3lintern"
+| where InitiatingProcessUniqueId contains "2533274790397065"
+| where TimeGenerated between (datetime(2025-10-09T00:00:00Z) .. datetime(2025-10-10T23:59:59Z))
+| project TimeGenerated, AccountName, ActionType, DeviceName, FileName, ProcessCommandLine, InitiatingProcessFileName, InitiatingProcessUniqueId, InitiatingProcessId, InitiatingProcessParentId
+| order by TimeGenerated asc
+```
 
 <img width="2143" height="482" alt="image" src="https://github.com/user-attachments/assets/02ca3943-1b5b-4338-8a72-e336423fe802" />
 
@@ -509,6 +611,8 @@ Exactly the kind of staging behavior attackers love:
 
 <img width="659" height="523" alt="image" src="https://github.com/user-attachments/assets/2a834215-ef61-46ec-afbd-1c895984cd43" />
 
+
+
 - The actor **left a cover story behind**, and the hint gives it away:
 
 	> **Hint:** The actor opened it for some reason.
@@ -518,6 +622,18 @@ Exactly the kind of staging behavior attackers love:
 - The attacker delivered `SupportTool.ps1` to the victim’s Downloads folder and then executed it via the Windows shell, causing Explorer to create `SupportTool.lnk` in the Recent items directory.
 
 - This ties the script to an interactive session (likely the `g4bri3Intern` profile) and demonstrates user-level execution (MITRE ATT&CK T1204 – User Execution).
+
+```
+//---------------FLAG 15-----------------------
+DeviceFileEvents
+| where DeviceName == "gab-intern-vm"
+| where FileName contains "Support"
+| where TimeGenerated between (datetime(2025-10-09T11:58:00Z) .. datetime(2025-10-09T13:03:59Z))
+| project TimeGenerated, ActionType, DeviceName, FileName, FolderPath, InitiatingProcessCommandLine, InitiatingProcessFileName, InitiatingProcessFolderPath
+| order by TimeGenerated asc
+```
+
+<img width="808" height="559" alt="image" src="https://github.com/user-attachments/assets/427a3960-63ed-4958-b1f7-79eacb384ac1" />
 
 ---------------------------------------------------
 
