@@ -89,7 +89,7 @@ DeviceFileEvents
 
 <img width="1450" height="575" alt="image" src="https://github.com/user-attachments/assets/f0c6c24a-97fd-4884-8613-8c23a803a964" />
 
-- In order to identify the most suspicious machine based on the given conditions I decided to set a variable called `'keywords' with "desk", "help", "support", and "tool"` in order to set up the query. 
+- In order to identify the most suspicious machine based on the given conditions I decided to set a variable called `'keywords'` with `"desk", "help", "support", and "tool"` in order to set up the query. 
 
 - First table I checked to start this hunt was `DeviceFileEvents.` 
 
