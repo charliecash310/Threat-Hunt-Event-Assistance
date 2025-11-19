@@ -127,6 +127,7 @@ DeviceFileEvents
 # Flag 1 - Initial Execution Detection  
 [Table of Contents](#table-of-contents)
 
+<img width="593" height="515" alt="image" src="https://github.com/user-attachments/assets/f13fbe06-37cb-423d-841a-77c07063faba" />
 
 - Throughout the threat hunt, the table `DeviceProcessEvents` was very key in order to examine the logs.
 
