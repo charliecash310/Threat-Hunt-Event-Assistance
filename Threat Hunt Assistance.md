@@ -62,7 +62,8 @@ Lessons Learned:
 
 <img width="655" height="151" alt="image" src="https://github.com/user-attachments/assets/a763f5e7-4426-4ee3-b02f-beaa98be81a5" />
 
-<img width="715" height="199" alt="image" src="https://github.com/user-attachments/assets/c1dce20f-a108-4b62-a762-2682c38e28e3" />
+
+###KQL Query Used
 
 ```
 //---------------------------------------------------------
