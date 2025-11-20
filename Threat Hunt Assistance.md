@@ -385,7 +385,6 @@ DeviceProcessEvents
 
 <img width="2278" height="711" alt="image" src="https://github.com/user-attachments/assets/955a3d47-e687-433e-aa54-33abd7a9bc92" />
 
-<img width="1715" height="104" alt="image" src="https://github.com/user-attachments/assets/4c05e29f-a378-42a3-a41e-f4ad7f244d28" />
 
 ```
 //---------------FLAG 7-----------------------
