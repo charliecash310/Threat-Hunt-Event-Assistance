@@ -189,9 +189,8 @@ DeviceProcessEvents
 
 - I decided to check `DeviceFileEvents` table and query for `Artifact` in the `FileName` column.
 
-
-<img width="1252" height="124" alt="image" src="https://github.com/user-attachments/assets/ec4632fa-5264-428d-b380-b6be28e62c1e" />
-
+---------------------------------------------------
+### KQL Query Used
 ```
 //---------------FLAG 2-----------------------
 DeviceFileEvents
@@ -243,6 +242,8 @@ The Answer:
 
 `"try { Get-Clipboard | Out-Null } catch { }"`
 
+---------------------------------------------------
+### KQL Query Used
 ```
 //---------------FLAG 3-----------------------
 DeviceFileEvents
@@ -251,8 +252,6 @@ DeviceFileEvents
 | where TimeGenerated between (datetime(2025-10-09T00:00:00Z) .. datetime(2025-10-15T23:59:59Z))
 | project TimeGenerated, ActionType, DeviceName, FileName, FolderPath, InitiatingProcessCommandLine, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessParentFileName
 ```
-
-<img width="1469" height="112" alt="image" src="https://github.com/user-attachments/assets/d85e1e11-089d-4bc3-8dd6-54f963f2c43c" />
 
 <img width="1429" height="354" alt="image" src="https://github.com/user-attachments/assets/95c4faef-340d-47f3-b76d-2fb9694019c4" />
 
@@ -271,8 +270,8 @@ DeviceFileEvents
 - Working within the timestamp of `2025-10-09T12:51:44.3425653Z` we can see that this was the last recon attempt for the query session for the attacker to enumerate.
 
 
-
-<img width="1111" height="121" alt="image" src="https://github.com/user-attachments/assets/fa7b7d31-3378-4812-836c-ae1b89161b7b" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 4-----------------------
@@ -306,7 +305,8 @@ DeviceProcessEvents
 	- `Time Generated @ 2025-10-09T12:51:18.3848072Z`
 	- `"cmd.exe" /c wmic logicaldisk get name,freespace,size`
 
-<img width="1168" height="107" alt="image" src="https://github.com/user-attachments/assets/1da00a3b-5db3-42bd-95e9-e45a6a2416a9" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 5-----------------------
@@ -335,7 +335,8 @@ DeviceProcessEvents
 
 - I made sure to stay focused on October 9th 2025 during the time of `12:50-12:55 PM` as other events from `DeviceProcessEvents` and `DeviceFileEvents` were very important in relation to `SupportToolScript.ps1`. `Powershell` executables have been very prevalent throughout the hunt. 
 
-<img width="1993" height="122" alt="image" src="https://github.com/user-attachments/assets/e832c5a8-2319-488c-8701-fa37526d84ab" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 6-----------------------
@@ -370,8 +371,8 @@ DeviceNetworkEvents
 
 	`2533274790397065`
 
-
-<img width="1723" height="95" alt="image" src="https://github.com/user-attachments/assets/19b3f1f5-c130-4b66-a178-7ff16cc32dc1" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 7-----------------------
@@ -418,8 +419,9 @@ And the hint:
 This is pointing directly at:
 
  **`tasklist.exe`**
-
-<img width="1506" height="132" alt="image" src="https://github.com/user-attachments/assets/68b42c61-03bd-41ed-b717-3b7dd0af90c1" />
+ 
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 8-----------------------
@@ -459,7 +461,8 @@ That’s `whoami` territory.
 `TimeGenerated`
 `2025-10-09T12:52:14.3135459Z`
 
-<img width="1494" height="121" alt="image" src="https://github.com/user-attachments/assets/39465d67-1977-4d65-84be-9bab3e458317" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 9-----------------------
@@ -492,7 +495,8 @@ In other words:
 Defender logs this as `DeviceNetworkEvents.`
 	Decided to check the `RemoteUrl` column for outbound connections that were being tested with powershell.exe results below were the only existing domains to an unusual destination.
 
-<img width="1651" height="138" alt="image" src="https://github.com/user-attachments/assets/fcd73d08-c31c-47df-bd31-454177670959" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 10-----------------------
@@ -533,7 +537,8 @@ Exactly the kind of staging behavior attackers love:
 - `No user desktop pop-ups
 - `Easy to exfiltrate quietly
 
-<img width="768" height="123" alt="image" src="https://github.com/user-attachments/assets/281b5337-bd69-44c2-8b6c-5b42be4d9c67" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 11-----------------------
@@ -561,7 +566,8 @@ DeviceFileEvents
 
 - The `RemoteIP` column showed the IP, `100.29.147.161`, of the outbound connection
 
-<img width="1220" height="137" alt="image" src="https://github.com/user-attachments/assets/48d39b74-91cc-4325-a9bc-84d3860c8bbe" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 12-----------------------
@@ -589,8 +595,8 @@ DeviceNetworkEvents
 - The question asks for `task name`
 
 
-
-<img width="1492" height="134" alt="image" src="https://github.com/user-attachments/assets/cd510383-0c72-4356-a8ec-d4355db571b0" />
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 13-----------------------
@@ -641,8 +647,9 @@ DeviceProcessEvents
 
 - This ties the script to an interactive session (likely the `g4bri3Intern` profile) and demonstrates user-level execution (MITRE ATT&CK T1204 – User Execution).
 
-<img width="1231" height="126" alt="image" src="https://github.com/user-attachments/assets/656f6176-20fc-40d4-a8a9-4a9e7762b5b7" />
 
+---------------------------------------------------
+### KQL Query Used
 
 ```
 //---------------FLAG 15-----------------------
